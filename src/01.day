@@ -1,1 +1,38 @@
+import java.io.FileNotFoundException;
+import  java.util.Scanner;
+import java.io.File;
 
+public class Main {
+    public static void main(String[] args) {
+int count = 0;
+int num = 50;
+File file = new File("/Users/darja/Desktop/Advent/Advent1/src/text");
+
+try (Scanner fileScanner= new Scanner(file)) {
+    while (fileScanner.hasNextLine()) {
+        String Line = fileScanner.nextLine();
+        String[] parts = Line.split("\n");
+        for (String line : parts) {
+            char letter = line.charAt(0);
+            String numberString = line.substring(1);
+            int number = Integer.parseInt(numberString);
+
+            if (letter == 'L') {
+                    num = num-number;
+            } else if (letter == 'R') {
+                num = num+number;
+            }
+            num = ((num % 100) + 100) % 100;
+            if (num == 0){
+                count++;
+            }
+        }
+    }
+
+} catch (FileNotFoundException e) {
+    throw new RuntimeException(e);
+}
+        System.out.println(count);
+    }
+
+}
